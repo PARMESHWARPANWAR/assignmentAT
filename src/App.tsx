@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FunctionChainManager from './FunctionChainCalculator';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen w-full bg-[#f7f7f7] relative">
+      {/* Dotted background overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none" 
+        style={{
+          backgroundImage: `radial-gradient(#ededed 2px, transparent 1px)`,
+          backgroundSize: '20px 20px'
+        }}
+      />
+      
+      {/* Content container */}
+      <div className="relative z-10">
+        <FunctionChainManager />
+      </div>
     </div>
   );
 }
