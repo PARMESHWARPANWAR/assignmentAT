@@ -47,22 +47,19 @@ const FunctionCard: React.FC<FunctionCardProps> = ({
     }, [availableFunctions, id]);
 
     const validateEquation = (eq: string): boolean => {
-        // Remove all whitespace
         const cleanEquation = eq.replace(/\s/g, '');
         
-        // Check if equation only contains valid characters
         const validCharsRegex = /^[0-9x+\-*/^().]+$/;
         if (!validCharsRegex.test(cleanEquation)) {
             setError('Only numbers, x, and basic operators (+,-,*,/,^) are allowed');
             return false;
         }
 
-        // Check for valid operator usage
         const operatorRegex = /[\+\-\*\/\^]/g;
         const operators = cleanEquation.match(operatorRegex);
         
         if (operators) {
-            // Check for consecutive operators
+
             const consecutiveOperators = /[\+\-\*\/\^]{2,}/;
             if (consecutiveOperators.test(cleanEquation)) {
                 setError('Consecutive operators are not allowed');
@@ -70,7 +67,6 @@ const FunctionCard: React.FC<FunctionCardProps> = ({
             }
         }
 
-        // Check for balanced parentheses
         const openParens = (cleanEquation.match(/\(/g) || []).length;
         const closeParens = (cleanEquation.match(/\)/g) || []).length;
         if (openParens !== closeParens) {
@@ -78,13 +74,11 @@ const FunctionCard: React.FC<FunctionCardProps> = ({
             return false;
         }
 
-        // Check if equation starts with an operator
-        if (/^[\+\*\/\^]/.test(cleanEquation)) {
-            setError('Equation cannot start with an operator (except minus)');
+        if (/^[\*\/\^]/.test(cleanEquation)) {
+            setError('Equation cannot start with an operator (except - and +)');
             return false;
         }
 
-        // Check if equation ends with an operator
         if (/[\+\-\*\/\^]$/.test(cleanEquation)) {
             setError('Equation cannot end with an operator');
             return false;
