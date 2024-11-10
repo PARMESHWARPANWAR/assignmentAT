@@ -29,10 +29,13 @@ export const ConnectionLines: React.FC<{
                     const fromPos = getElementCenter(fromEl);
                     const toPos = getElementCenter(toEl);
 
-                    return {
+                    if (fromPos?.x != null && fromPos?.y != null && 
+                        toPos?.x != null && toPos?.y != null) {
+                      return {
                         from: fromPos,
                         to: toPos
-                    };
+                      };
+                    }
                 }
                 return null;
             }).filter(Boolean) as { from: Position; to: Position }[];

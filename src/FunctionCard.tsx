@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Icon } from './components/Icons';
 import { ChevronDown } from 'lucide-react';
-import { evaluateEquation } from './utils/equationCal';
+import { evaluateEquation } from './utils/evaluateEquation';
 import { Position } from './types';
 import { ConnectionPoint } from './components/ConnectionPoint';
 
@@ -118,6 +118,7 @@ const FunctionCard: React.FC<FunctionCardProps> = ({
                 left: `${position.x}px`,
                 top: `${position.y}px`
             }}
+            data-testid={`function-card-${id}`}
         >
             <div className="flex mb-2 h-fit items-center">
                 <Icon />
