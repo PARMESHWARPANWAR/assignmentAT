@@ -5,7 +5,6 @@ import FunctionChainManager from './FunctionChainCalculator';
 function App() {
   return (
     <div className="min-h-screen w-full bg-[#f7f7f7] relative">
-      {/* Dotted background overlay */}
       <div 
         className="absolute inset-0 pointer-events-none" 
         style={{
@@ -14,8 +13,7 @@ function App() {
         }}
       />
       
-      {/* Content container */}
-      <div className="relative z-10">
+      <div className="relative overflow-auto w-full h-full">
         <FunctionChainManager />
       </div>
     </div>

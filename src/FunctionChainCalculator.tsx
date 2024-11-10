@@ -79,7 +79,6 @@ const FunctionChainManager = () => {
       }));
     }, [initialX]);
 
-    // Update connections when nextFunId changes
     const updateConnections = (currentId: number, nextId: number | null) => {
       const newConnections = connections.filter(conn => 
         !conn.from.startsWith(`${currentId}-`) && !conn.to.startsWith(`${currentId}-`)
@@ -128,7 +127,6 @@ const FunctionChainManager = () => {
           value={finalY}
           position={{ x: 1299, y: 335 }} 
         /> 
-        <div className="relative h-[800px]">
           {functionCards.map((card) => (
             <FunctionCard
               key={card.id}
@@ -139,7 +137,6 @@ const FunctionChainManager = () => {
               input={inputs[card.id] || card.input}
             />
           ))}
-        </div>
       </div>
     );
 };

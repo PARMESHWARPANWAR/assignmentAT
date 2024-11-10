@@ -6,6 +6,18 @@ export const ConnectionLines: React.FC<{
     connections: Connection[];
 }> = ({ connections }) => {
     const [paths, setPaths] = useState<{ from: Position; to: Position }[]>([]);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [flag,setFlag] = useState<boolean>(false)
+
+    const handleMouseOver = (index:number) => {
+        setHoveredIndex(index);
+        setFlag(true);
+      };
+    
+      const handleMouseLeave = () => {
+        setHoveredIndex(null);
+        setFlag(false);
+      };
 
     useEffect(() => {
         const updatePaths = () => {
@@ -28,36 +40,66 @@ export const ConnectionLines: React.FC<{
             setPaths(newPaths);
         };
 
-        // Initial update
         updatePaths();
 
-        // Update on window resize
+        // Update paths on window resize
         window.addEventListener('resize', updatePaths);
-        return () => window.removeEventListener('resize', updatePaths);
+        
+        // Also update paths periodically for a short time after mount
+        // to handle any delayed rendering
+        const interval = setInterval(updatePaths, 100);
+        setTimeout(() => clearInterval(interval), 1000);
+
+        return () => {
+            window.removeEventListener('resize', updatePaths);
+            clearInterval(interval);
+        };
     }, [connections]);
 
+    const generatePath = (from: Position, to: Position) => {
+        const dx = to.x - from.x;
+        const dy = to.y - from.y;
+        const distance = Math.hypot(dx, dy);
+        
+        const offset = Math.min(100, distance * 0.4);
+        return `M ${from.x} ${from.y} 
+                C ${from.x + offset} ${from.y},
+                  ${to.x - offset} ${to.y},
+                  ${to.x} ${to.y}`;
+    };
+
     return (
-        <svg
-            className="absolute inset-0 pointer-events-none z-50"
-            style={{ width: '100%', height: '100%' }}
-        >
-            {paths.map((path, index) => {
-                const distance = Math.hypot(path.to.x - path.from.x, path.to.y - path.from.y);
-                const curvePath =
-                  distance < 150
-                    ? `M ${path.from.x} ${path.from.y} L ${path.to.x} ${path.to.y}`
-                    : `M ${path.from.x} ${path.from.y} Q ${(path.from.x + path.to.x) / 2} ${(path.from.y + path.to.y) / 2 + 50} ${path.to.x} ${path.to.y}`;
-                
-                return <g key={index}>
-                    <path
-                        d={curvePath}
-                        stroke="#0066FF4D"
-                        strokeWidth="10"
-                        fill="none"
-                        strokeLinecap="round"
-                    />
-                </g>
-           })}
-        </svg>
+        <svg 
+        className="absolute inset-0 pointer-events-none z-50 w-full h-full" 
+        // style={{ minHeight: '3000px' }}
+        preserveAspectRatio="none"
+      >
+        {paths.map((path, index) => (
+          <g 
+            key={index}
+            onMouseOver={() => handleMouseOver(index)}
+            onMouseLeave={handleMouseLeave}
+            className="pointer-events-auto"
+            onClick={() => setFlag(false)}
+          >
+            <path
+              d={generatePath(path.from, path.to)}
+              stroke="#0066FF4D"
+              strokeWidth="10"
+              fill="none"
+              strokeLinecap="round"
+            />
+            {(flag && hoveredIndex === index) && (
+              <path
+                d={generatePath(path.from, path.to)}
+                stroke="#0066FF"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+              />
+            )}
+          </g>
+        ))}
+      </svg>
     );
 };
