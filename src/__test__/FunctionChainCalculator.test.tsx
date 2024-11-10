@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import FunctionChainManager from '../FunctionChainCalculator';
 import '@testing-library/jest-dom';
+import { Connection } from '../types';
 
 // Mock child components
 jest.mock('../FunctionCard', () => {
@@ -44,7 +45,7 @@ jest.mock('../components/OutputBox', () => {
 jest.mock('../components/ConnectionLines', () => ({
     ConnectionLines: jest.fn(({ connections }) => (
         <div data-testid="connection-lines">
-            {connections.map((conn, index) => (
+            {connections.map((conn:Connection, index:number) => (
                 <div key={index} data-testid={`connection-${conn.from}-${conn.to}`}>
                     {conn.from} → {conn.to}
                 </div>
