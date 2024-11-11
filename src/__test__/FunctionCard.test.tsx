@@ -34,7 +34,7 @@ describe('FunctionCard', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
-        (evaluateEquation as jest.Mock).mockReturnValue(6); // Default mock return value
+        (evaluateEquation as jest.Mock).mockReturnValue(6);
     });
 
     it('renders with correct initial values', () => {

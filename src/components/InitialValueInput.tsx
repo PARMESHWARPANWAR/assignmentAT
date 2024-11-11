@@ -29,7 +29,7 @@ const InitialValueInput: React.FC<InitialValueInputProps> = ({
           <input type='number' value={value} onChange={(e)=>onChange(Number(e.target.value))} className='pl-2 text-[18px] font-bold w-[50px]'/> 
           <div className="w-[1px] h-[46px] bg-[#FFEED5] mr-2"></div>
           <div className="flex items-center">
-            <ConnectionPoint id={'in-input'} type="output"/>
+            <ConnectionPoint id={'in-input'} type="output" label = {false} />
           </div>
         </div>
       </div>

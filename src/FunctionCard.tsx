@@ -120,12 +120,12 @@ const FunctionCard: React.FC<FunctionCardProps> = ({
             }}
             data-testid={`function-card-${id}`}
         >
-            <div className="flex mb-2 h-fit items-center">
+            <div className="flex h-fit items-center">
                 <Icon />
                 <span className="text-gray-400 text-sm font-medium ml-2">{label}</span>
             </div>
 
-            <label htmlFor={`equation-${id}`} className="text-gray-800 text-xs font-medium mb-2">
+            <label htmlFor={`equation-${id}`} className="text-gray-800 text-xs font-medium mt-5">
                 Equation
             </label>
             <div className="flex flex-col gap-1">
@@ -142,7 +142,7 @@ const FunctionCard: React.FC<FunctionCardProps> = ({
                 )}
             </div>
 
-            <label htmlFor={`nextFunction-${id}`} className="text-gray-800 text-xs font-medium mb-2 mt-2">
+            <label htmlFor={`nextFunction-${id}`} className="text-gray-800 text-xs font-medium mt-5">
                 Next function
             </label>
             <div className="relative">
@@ -165,7 +165,7 @@ const FunctionCard: React.FC<FunctionCardProps> = ({
                 </div>
             </div>
 
-            <div className="flex justify-between items-center mt-12">
+            <div className="flex justify-between items-center mt-11">
                 <ConnectionPoint id={`${id}-input`} type="input" />
                 <ConnectionPoint id={`${id}-output`} type="output" />
             </div>

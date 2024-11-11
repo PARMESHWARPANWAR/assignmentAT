@@ -125,7 +125,7 @@ const FunctionChainManager = () => {
         />
         <OutputBox
           value={finalY}
-          position={{ x: 1299, y: 335 }} 
+          position={{ x: 1239, y: 335 }} 
         /> 
           {functionCards.map((card) => (
             <FunctionCard

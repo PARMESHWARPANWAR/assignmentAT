@@ -25,7 +25,7 @@ const OutputBox: React.FC<InitialValueInputProps> = ({
       
         <div className="relative bg-white border-[2px] px-4 border-[#2DD179] rounded-[15px] flex items-center justify-between w-[115px] h-[50px]">
            <div className="flex items-center">
-           <ConnectionPoint id={`out-input`} type="input" />
+           <ConnectionPoint id={`out-input`} type="input" label = {false}/>
           </div>
           <div className="w-[1px] h-[46px] bg-[#C5F2DA] mr-4"></div>
           <span className="text-[18px] font-bold">
